@@ -1,7 +1,6 @@
-// import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
 import React from 'react';
-import FP from './FP';
+import FP from './script/FP';
 
 // function App() {
 //   return (
