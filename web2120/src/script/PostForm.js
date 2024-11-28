@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PostForm({ onAdd }) {
+function PostForm ( {onAdd, resetAll} ) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -34,6 +34,10 @@ function PostForm({ onAdd }) {
         </div>
         <button type="submit">추가</button>
       </form>
+
+      <button onClick={resetAll}>
+        {"취소"}
+      </button>
     </div>
   );
 }

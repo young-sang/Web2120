@@ -1,6 +1,14 @@
 import React from "react";
 
 function PostList({ posts, onSelect }) {
+  if(!posts || posts.length === 0){
+    return(
+      <div>
+        <h2>게시글 목록</h2>  
+        <p>검색된 목록이 없습니다.</p>
+      </div>
+    );
+  }
   return (
     <div>
       <h2>게시글 목록</h2>

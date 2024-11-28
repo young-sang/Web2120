@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import PostList from "./PostList";
 import PostDetail from "./PostDetail";
 import PostForm from "./PostForm";
+import SearchResultPage from "./SearchResultPage";
+import MainSite from "./MainSite";
 
 function Web() {
   const [posts, setPosts] = useState([
     { id: 1, title: "첫 번째 글", content: "첫 번째 글의 내용입니다." },
     { id: 2, title: "두 번째 글", content: "두 번째 글의 내용입니다." },
   ]);
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(false);
+  const [filter, setFilter] = useState(posts);
   const [showForm, setShowForm] = useState(false);
+  const [didSearch, setDidSearch] = useState(false);
 
   const addPost = (title, content) => {
     const newPost = {
@@ -19,6 +23,7 @@ function Web() {
     };
     setPosts([...posts, newPost]);
     setShowForm(false); 
+    setFilter([...posts, newPost]);
   };
 
   const handleSelectPost = (post) => {
@@ -29,15 +34,34 @@ function Web() {
     }
   };
 
+  const resetAll = () => {
+    setFilter(posts);
+    setSelectedPost(false);
+    setShowForm(false);
+    setDidSearch(false);
+  }
+
+
+
   return (
     <div>
-      <h1>게시판</h1>
-      <PostList posts={posts} onSelect={handleSelectPost} />
-      {selectedPost && <PostDetail post={selectedPost} />}
-      <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? "취소" : "새 글 추가"}
-      </button>
-      {showForm && <PostForm onAdd={addPost} />}
+      {selectedPost ? (
+        <PostDetail post={selectedPost} resetAll={resetAll} />
+      ) : showForm ? (
+        <PostForm onAdd={addPost} resetAll={resetAll} />
+      ) : didSearch ? (
+        <SearchResultPage filter={filter} resetAll={resetAll} handleSelectPost={handleSelectPost} />
+      ) : (
+        <MainSite
+          posts={posts}
+          filter={filter}
+          setPosts={setPosts}
+          setFilter={setFilter}
+          setDidSearch={setDidSearch}
+          setShowForm={setShowForm}
+          handleSelectPost={handleSelectPost}
+        />
+      )}
     </div>
   );
 }

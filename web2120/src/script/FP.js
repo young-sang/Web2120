@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "./Login";
 import "../style/FP.css";
-import Web2 from "./Web2.js";
+import Web from "./Web.js";
 
 function FP() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,7 +12,7 @@ function FP() {
 
   return (
     <div className="FP">
-      {isLoggedIn ? <Web2 /> : <Login onLogin={handleLogin} />}
+      {isLoggedIn ? <Web /> : <Login onLogin={handleLogin} />}
     </div>
   );
 }
