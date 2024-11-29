@@ -1,5 +1,6 @@
 import React from "react";
 
+// 게시물 목록 컴포넌트
 function PostList({ posts, onSelect }) {
   if(!posts || posts.length === 0){
     return(

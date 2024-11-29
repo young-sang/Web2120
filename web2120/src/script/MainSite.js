@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PostList from "./PostList";
 
+// 메인 사이트 컴포넌트
 function MainSite( { posts, filter ,setFilter, setDidSearch, setShowForm, handleSelectPost} ){
     const [search, setSearch] = useState('');
     

@@ -1,7 +1,7 @@
 import React from "react";
 import PostList from "./PostList";
 
-
+// 검색 버튼 누르면 이동하는 컴포넌트
 function SearchResultPage({filter, resetAll, handleSelectPost}){
     return(
       <div>
