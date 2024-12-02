@@ -19,7 +19,7 @@ function Web() {
   const [tags, setTags] = useState(
     ['normal', 'program']
   );
-  const [filteredTag, setFilteredTag] = useState([]);
+
   const [selectedPost, setSelectedPost] = useState(false);
   const [filter, setFilter] = useState(posts);
   const [showForm, setShowForm] = useState(false);
@@ -69,6 +69,8 @@ function Web() {
         <MainSite
           posts={posts}
           filter={filter}
+          tags={tags}
+          setTags={setTags}
           setPosts={setPosts}
           setFilter={setFilter}
           setDidSearch={setDidSearch}
