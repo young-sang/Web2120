@@ -5,14 +5,16 @@ import Web from "./Web.js";
 
 function FP() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userType, setUserType] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = (user) => {
     setIsLoggedIn(true); 
+    setUserType(user.username === "admin" ? "admin" : "user");
   };
 
   return (
     <div className="FP">
-      {isLoggedIn ? <Web /> : <Login onLogin={handleLogin} />}
+      {isLoggedIn ? <Web userType={userType} /> : <Login onLogin={handleLogin} />}
     </div>
   );
 }
