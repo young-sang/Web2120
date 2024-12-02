@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import PostList from "./PostList";
 import PostDetail from "./PostDetail";
 import PostForm from "./PostForm";
 import SearchResultPage from "./SearchResultPage";
 import MainSite from "./MainSite";
 
 
-function Web() {
+function Web({userType}) {
   const [posts, setPosts] = useState([
     { id: 1, title: "첫 번째 글", content: "첫 번째 글의 내용입니다.", tags: [
       "normal",

@@ -6,19 +6,35 @@ const Login = ({ onLogin }) => {
   const [error, setError] = useState("");
 
   const accounts = [
-    { username: "user1", password: "pass1" },
-    { username: "user2", password: "pass2" },
-    { username: "admin", password: "admin123" },
+    { username: "user1", password: "pass1"},
+    { username: "user2", password: "pass2"},
+  ];
+
+  const admin_accounts = [
+    { username: "admin", password: "admin123"},
   ];
 
   const handleLogin = () => {
     const user = accounts.find(
       (account) => account.username === username && account.password === password
     );
+    const admin = admin_accounts.find(
+      (account) => account.username === username && account.password === password
+    );
     if (user) {
-      onLogin(); 
-    } else {
+      onLogin(user); 
+    } 
+    else if (admin) {
+      onLogin(admin);
+    } 
+    else {
       setError("Invalid username or password. Please try again.");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
     }
   };
 
@@ -31,6 +47,7 @@ const Login = ({ onLogin }) => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
       </div>
       <div>
@@ -39,6 +56,7 @@ const Login = ({ onLogin }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
       </div>
       <button onClick={handleLogin}>Login</button>
