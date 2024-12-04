@@ -6,11 +6,8 @@ import MainSite from "./MainSite";
 
 
 function Web({userType}) {
-  const [posts, setPosts] = useState([
-  ]);
-  const [tags, setTags] = useState(
-    ['normal', 'program']
-  );
+  const [posts, setPosts] = useState([]);
+  const [tags, setTags] = useState(['normal', 'program']);
 
   const [selectedPost, setSelectedPost] = useState(false);
   const [filter, setFilter] = useState(posts);
@@ -24,9 +21,10 @@ function Web({userType}) {
       tags,
       content,
     };
-    setPosts([...posts, newPost]);
-    setShowForm(false); 
-    setFilter([...posts, newPost]);
+    const newPosts = [...posts, newPost];  // 새로운 게시글을 추가한 배열
+    setPosts(newPosts);  // posts 업데이트
+    setFilter(newPosts);  // filter도 최신 상태로 업데이트
+    setShowForm(false);
   };
 
   
@@ -39,9 +37,19 @@ function Web({userType}) {
     }
   };
 
+  const handleDeletePost = (id) => {
+    const updatedPosts = posts.filter((post) => post.id !== id);
+    const reindexedPosts = updatedPosts.map((post, index) => ({
+      ...post,
+      id: index + 1, // 새 ID는 1부터 시작
+    }));
+    setPosts(reindexedPosts);  // posts 업데이트
+    setFilter(reindexedPosts);  // filter 상태도 최신 배열로 업데이트
+    resetAll();  // 메인 화면으로 이동
+  };
+
   // 메인 화면으로 돌아가기 위한 조건 초기화 함수
   const resetAll = () => {
-    setFilter(posts);
     setSelectedPost(false);
     setShowForm(false);
     setDidSearch(false);
@@ -53,18 +61,7 @@ function Web({userType}) {
     <div>
       {selectedPost ? (
         <PostDetail post={selectedPost} resetAll={resetAll} 
-        onDelete={(id) => {
-          // 1. 해당 ID의 게시글을 제외한 새로운 배열 생성
-          const updatedPosts = posts.filter((post) => post.id !== id);
-          // 2. ID를 다시 매기기
-          const reindexedPosts = updatedPosts.map((post, index) => ({
-            ...post,
-            id: index + 1, // 새 ID는 1부터 시작
-          }));
-          // 3. 상태 업데이트
-          setPosts(reindexedPosts);
-          resetAll(); // 메인 화면으로 이동
-        }}
+        onDelete={handleDeletePost}
         tags={tags}
         userType={userType}/>
       ) : showForm ? (
