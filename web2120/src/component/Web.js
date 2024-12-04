@@ -7,13 +7,6 @@ import MainSite from "./MainSite";
 
 function Web({userType}) {
   const [posts, setPosts] = useState([
-    { id: 1, title: "첫 번째 글", content: "첫 번째 글의 내용입니다.", tags: [
-      "normal",
-    ]},
-    { id: 2, title: "두 번째 글", content: "두 번째 글의 내용입니다.", 
-    tags: [
-      "program",
-    ]},
   ]);
   const [tags, setTags] = useState(
     ['normal', 'program']
@@ -59,11 +52,26 @@ function Web({userType}) {
   return (
     <div>
       {selectedPost ? (
-        <PostDetail post={selectedPost} resetAll={resetAll} />
+        <PostDetail post={selectedPost} resetAll={resetAll} 
+        onDelete={(id) => {
+          // 1. 해당 ID의 게시글을 제외한 새로운 배열 생성
+          const updatedPosts = posts.filter((post) => post.id !== id);
+          // 2. ID를 다시 매기기
+          const reindexedPosts = updatedPosts.map((post, index) => ({
+            ...post,
+            id: index + 1, // 새 ID는 1부터 시작
+          }));
+          // 3. 상태 업데이트
+          setPosts(reindexedPosts);
+          resetAll(); // 메인 화면으로 이동
+        }}
+        tags={tags}
+        userType={userType}/>
       ) : showForm ? (
         <PostForm onAdd={addPost} tags={tags} resetAll={resetAll} />
       ) : didSearch ? (
-        <SearchResultPage filter={filter} resetAll={resetAll} handleSelectPost={handleSelectPost} />
+        <SearchResultPage filter={filter} resetAll={resetAll} 
+        handleSelectPost={handleSelectPost} />
       ) : (
         <MainSite
           posts={posts}
