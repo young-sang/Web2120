@@ -50,6 +50,7 @@ function MainSite( { posts, filter, tags, setTags ,setFilter, setDidSearch, setS
   
     const changeAddTag = (e) => {
       e.preventDefault();
+      if(addTag == '' || addTag ==' ') return;
       setTags([...tags, addTag]);
       setAddTag('');
     }
