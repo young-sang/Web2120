@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostDetail from "./PostDetail";
 import PostForm from "./PostForm";
 import SearchResultPage from "./SearchResultPage";
@@ -13,6 +13,10 @@ function Web({userType}) {
   const [filter, setFilter] = useState(posts);
   const [showForm, setShowForm] = useState(false);
   const [didSearch, setDidSearch] = useState(false);
+
+  useEffect(() => {
+    setFilter(posts);
+  }, [posts]);
 
   const addPost = (title, tags, content) => {
     const newPost = {
@@ -50,7 +54,6 @@ function Web({userType}) {
 
   // 메인 화면으로 돌아가기 위한 조건 초기화 함수
   const resetAll = () => {
-    setPosts(posts);
     setFilter(posts);
     setSelectedPost(false);
     setShowForm(false);
