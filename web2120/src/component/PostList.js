@@ -3,6 +3,7 @@ import React from "react";
 // 게시물 목록 컴포넌트
 function PostList({ posts, onSelect }) {
 
+  console.log(posts);
   
 
   if(!posts || posts.length === 0){

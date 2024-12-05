@@ -50,6 +50,8 @@ function Web({userType}) {
 
   // 메인 화면으로 돌아가기 위한 조건 초기화 함수
   const resetAll = () => {
+    setPosts(posts);
+    setFilter(posts);
     setSelectedPost(false);
     setShowForm(false);
     setDidSearch(false);

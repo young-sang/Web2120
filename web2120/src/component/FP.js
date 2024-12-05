@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Login from "./Login";
-import "../style/FP.css";
 import Web from "./Web.js";
 
 function FP() {
